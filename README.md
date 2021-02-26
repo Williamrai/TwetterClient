@@ -23,7 +23,7 @@ Time spent: **7** hours spent in total
 - Deleting the podfile and installing again, solved the pod problem
 
 ## Walkthrough
-
+![Application Walkthrough](twitter-1.gif)
 
 
 
