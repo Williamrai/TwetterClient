@@ -22,13 +22,12 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.codepath.TwitterApp</string>
+			<string>com.codepath.Twitter</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>alamoTwitter</string>
 			</array>
 		</dict>
-		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
