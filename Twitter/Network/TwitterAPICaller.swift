@@ -9,7 +9,7 @@
 import UIKit
 import BDBOAuth1Manager
 
-class TwitterAPICaller: BDBOAuth1SessionManager {    
+class TwitterAPICaller: BDBOAuth1SessionManager {
     static let client = TwitterAPICaller(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "uFTmFW66AAMEUwx3rZlZDMSCf", consumerSecret: "LtlxIoQpBvHcqjpSMIA9Gs2E9wCJbr7xkx9EpSdBYoNedaZUgh")
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
@@ -24,17 +24,19 @@ class TwitterAPICaller: BDBOAuth1SessionManager {
     }
     
     func login(url: String, success: @escaping () -> (), failure: @escaping (Error) -> ()){
-        loginSuccess = success
-        loginFailure = failure
-        TwitterAPICaller.client?.deauthorize()
-        TwitterAPICaller.client?.fetchRequestToken(withPath: url, method: "GET", callbackURL: URL(string: "alamoTwitter://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
-            let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token!)")!
-            UIApplication.shared.open(url)
-        }, failure: { (error: Error!) -> Void in
-            print("Error: \(error.localizedDescription)")
-            self.loginFailure?(error)
-        })
-    }
+            loginSuccess = success
+            loginFailure = failure
+            TwitterAPICaller.client?.deauthorize()
+            TwitterAPICaller.client?.fetchRequestToken(withPath: url, method: "GET", callbackURL: URL(string: "alamoTwitter://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
+                let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token!)")!
+                UIApplication.shared.open(url)
+                
+            }, failure: { (error: Error!) -> Void in
+                print("Error: \(error.localizedDescription)")
+                self.loginFailure?(error)
+            })
+        }
+    
     func logout (){
         deauthorize()
     }
