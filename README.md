@@ -22,9 +22,10 @@ Time spent: **7** hours spent in total
 - Using the starter proejct enabled to redirect it back to the application
 - Deleting the podfile and installing again, solved the pod problem
 
-## Video Walkthrough
+## Walkthrough
 
-Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+
 
