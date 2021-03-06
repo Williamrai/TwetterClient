@@ -10,17 +10,23 @@ import UIKit
 
 
 class HomeTableViewController: UITableViewController {
-
+    
+    //variables
     var tweetArray = [NSDictionary]()
     var numberOfTweets : Int!
+    var userInfo = NSDictionary()
+    
     
     let myRefreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        getUserInformations()
+        
         myRefreshControl.addTarget(self, action: #selector(loadTweets), for: .valueChanged)
         tableView.refreshControl = myRefreshControl
+        
         
     }
     
@@ -41,7 +47,7 @@ class HomeTableViewController: UITableViewController {
             for tweet in tweets{
                 self.tweetArray.append(tweet)
             }
-                        
+            
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()
         }, failure: { (Error) in
@@ -67,6 +73,18 @@ class HomeTableViewController: UITableViewController {
             print("Could not retrieve tweets")
         })
     }
+    
+    //get User Informations
+    func getUserInformations(){
+        let url = "https://api.twitter.com/1.1/users/show.json";
+        let params = ["screen_name" : "Okayhowareyou2"];
+        TwitterAPICaller.client?.getUserInformations(url: url, parameters: params, success: { (userInfos : NSDictionary) in
+            self.userInfo = userInfos
+        }, failure: { (error : Error) in
+            print("could not load user informations : \(error)")
+        })
+        
+    }
 
     //func that triggers the users to log out
     @IBAction func onLogOut(_ sender: Any) {
@@ -80,10 +98,51 @@ class HomeTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCellTableViewCell
         
         let user = tweetArray[indexPath.row]["user"] as! NSDictionary
+        let entities = tweetArray[indexPath.row]["entities"] as! NSDictionary
+        let medias = entities["media"] as? [NSDictionary]
+        
+       
         
         let name = user["name"] as? String
         cell.userNameLabel.text = name
         cell.tweetContentLabel.text = tweetArray[indexPath.row]["text"] as? String
+        
+        //medias
+        if medias != nil{
+            for media in medias!{
+               
+//                cell.tweetImageView.autoresizingMask = []
+//                cell.tweetImageView.frame.size.height = 160.0
+                
+//                let screenSize: CGRect = UIScreen.main.bounds
+//                cell.tweetImageView.frame = CGRect(x: 0, y: 0, width: 50, height: screenSize.height * 100)
+                
+//                let imageUrl = URL(string: (media["media_url_https"] as? String)!)
+//                print("image URL",imageUrl)
+//                let data = try? Data(contentsOf: imageUrl!)
+//                if let imageData = data{
+//                    cell.tweetImageView.autoresizingMask = []
+//                    cell.tweetImageView.frame = CGRect(x: 0, y: 0, width: 50, height: 160.0)
+//                    cell.tweetImageView.image = UIImage(data: imageData)
+//                }
+//
+//                let profileBannerImageUrl = URL(string: (userInfos["profile_banner_url"] as? String)!)
+//                let bannerData = try? Data(contentsOf: profileBannerImageUrl!)
+//                if let bannerDataData = bannerData{
+//                    profileBannerImgView.image = UIImage(data: bannerDataData)
+//                }
+               // cell.tweetImageView.isHidden = false
+                
+        
+              
+            }
+            
+        }else{
+//            cell.tweetImageView.frame = CGRect(x: 0, y: 0, width: 0.0 , height: 0.0)
+//            cell.tweetImageView.isHidden = true
+//            print("no meida for the tweet")
+        }
+        
         
         let relativeDate = getRelativeDate(date: (tweetArray[indexPath.row]["created_at"] as! String))
         let screenNameSection = "@\(user["screen_name"] as! String) \u{2022} \(relativeDate)"
@@ -157,15 +216,22 @@ class HomeTableViewController: UITableViewController {
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let imgUrl = userInfo["profile_image_url_https"] as? String
+        
+        if segue.identifier == "homeToProfile"{
+            let nav = segue.destination as! UINavigationController
+            let profileViewController = nav.topViewController as! ProfileViewController
+            profileViewController.userInfos = userInfo
+            
+        }else{
+            //when there is a navigation view controller
+            let nav = segue.destination as! UINavigationController
+            let tweetViewController = nav.topViewController as! TweetViewController
+            tweetViewController.imageString = imgUrl
+        }
     }
-    */
+    
 
 }

@@ -29,6 +29,7 @@ class TwitterAPICaller: BDBOAuth1SessionManager {
             TwitterAPICaller.client?.deauthorize()
             TwitterAPICaller.client?.fetchRequestToken(withPath: url, method: "GET", callbackURL: URL(string: "alamoTwitter://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential!) -> Void in
                 let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token!)")!
+                print("requestToken : ", requestToken!)
                 UIApplication.shared.open(url)
                 
             }, failure: { (error: Error!) -> Void in
@@ -40,6 +41,8 @@ class TwitterAPICaller: BDBOAuth1SessionManager {
     func logout (){
         deauthorize()
     }
+    
+    //getters
     
     func getDictionaryRequest(url: String, parameters: [String:Any], success: @escaping (NSDictionary) -> (), failure: @escaping (Error) -> ()){
         TwitterAPICaller.client?.get(url, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -57,7 +60,30 @@ class TwitterAPICaller: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+    
+    //get all information of a user based on the screen_name
+    func getUserInformations(url : String, parameters: [String:Any], success : @escaping (NSDictionary) -> (), failure : @escaping (Error) -> ()){
+        TwitterAPICaller.client?.get(url, parameters: parameters, progress: nil, success: { (task : URLSessionDataTask, response : Any?) in
+            success(response as! NSDictionary)
+        }, failure: { (task : URLSessionDataTask?, error : Error) in
+            failure(error)
+        })
+    }
+    
+    //get settings
+    func getUserSettings(url : String, success : @escaping (NSDictionary) -> (), failure: @escaping (Error) -> () ){
+        TwitterAPICaller.client?.get(url, parameters: nil, progress: nil, success: { (task : URLSessionDataTask, response : Any?) in
+            success(response as! NSDictionary)
+        }, failure: { (task :URLSessionDataTask?, error : Error) in
+            failure(error)
+        })
+    }
+    
+    
+    //end of getters
 
+    
+    //post requests
     func postRequest(url: String, parameters: [Any], success: @escaping () -> (), failure: @escaping (Error) -> ()){
         TwitterAPICaller.client?.post(url, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             success()
@@ -104,5 +130,9 @@ class TwitterAPICaller: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+    
+    //end of post request
+    
+   
     
 }
