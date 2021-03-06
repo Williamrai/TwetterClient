@@ -6,6 +6,7 @@
 
 ## Added Functions
 -  view, compose, favorite, and retweet tweets.
+-  a basic profile
 
 Time spent: 6 hours spent in total
 
