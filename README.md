@@ -6,6 +6,7 @@
 
 ## Added Functions
 -  view, compose, favorite, and retweet tweets.
+-  a basic profile
 
 Time spent: 6 hours spent in total
 
@@ -14,7 +15,8 @@ Time spent: 6 hours spent in total
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+![Application Walkthrough](tweet2.gif)
 
 
 # Twitter - Part I
@@ -38,9 +40,10 @@ Time spent: **7** hours spent in total
 - Using the starter proejct enabled to redirect it back to the application
 - Deleting the podfile and installing again, solved the pod problem
 
-## Video Walkthrough
+## Walkthrough
+![Application Walkthrough](twitter-1.gif)
 
-Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
 
