@@ -2,6 +2,21 @@
 
 **TwetterClient** is a basic twitter app that reads your tweets.
 
+# Twitter - Part II
+
+## Added Functions
+-  view, compose, favorite, and retweet tweets.
+
+Time spent: 6 hours spent in total
+
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+# Twitter - Part I
 Time spent: **7** hours spent in total
 
 ## Functions
