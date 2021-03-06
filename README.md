@@ -15,7 +15,9 @@ Time spent: 6 hours spent in total
 
 Here's a walkthrough of implemented user stories:
 
+
 ![Application Walkthrough](tweet2.gif)
+
 
 # Twitter - Part I
 Time spent: **7** hours spent in total
